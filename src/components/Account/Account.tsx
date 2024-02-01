@@ -1,8 +1,13 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+
+import "./Account.css";
+
 const Account = () => {
     return (
         <div className="account">
             <div className="avatar">
-                <img src="" alt="" />
+                <FontAwesomeIcon icon={faUser} />
             </div>
             <div className="account_title">
                 <div>Вы зарегистрированиы</div>

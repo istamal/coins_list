@@ -17,5 +17,9 @@
 
 .left div:last-child svg {
     margin: 0 8px;
-    fill: #0000ff;
+    color: #0000ff;
+}
+
+.left div:first-child {
+    font-size: 20px;
 }

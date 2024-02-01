@@ -8,10 +8,11 @@
 
 .pagiantion__page-item {
     width: 40px;
+    font-size: 12px;
     height: 40px;
     border-radius: 5px;
     text-align: center;
-    line-height: 2.5;
+    line-height: 3.3;
 }
 
 .pagiantion__page-item.active {

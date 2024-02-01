@@ -9,7 +9,8 @@
 }
 
 .table td, .table th {
-    padding: 10px 0;
+    padding: 4px 0;
+    font-size: 12px;
 }
 
 .table__header {
@@ -18,12 +19,11 @@
     border-radius: 10px;
 }
 
-svg {
-    fill: #0000ff;
-    height: 25px;
-    width: 25px;
+.table svg {
+    color: #0000ff;
+    margin-right: 5px;
 }
 
-svg:last-child {
+.table svg:last-child {
     width: 15px;
 }

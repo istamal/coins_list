@@ -48,8 +48,9 @@ const Drawer: React.FC<DrawerProps> = ({ data, onClose }) => {
     )
   
     return (
+      <div className="drawer_bg">
         <div className="drawer">
-            <button onClick={onClose}>Close</button>
+            <button className="close" onClick={onClose}>&#x2715;</button>
             <div className="chart">
                 <Chart
                     options={{
@@ -68,15 +69,16 @@ const Drawer: React.FC<DrawerProps> = ({ data, onClose }) => {
                 <th>Сумма</th>
                 <th>Дата</th>
             </tr>
-            {data[0].data.length && data[0].data.map((person: DailyStars) => (
+            {data[0].data.length && data[0].data.slice(0, 10).map((person: DailyStars) => (
                 <tr key={person?.id}>
                     <td>{person?.type === "WRITE_OFF" ? "Списание" : "Пополнение"}</td>
                     <td className={person.status.toLocaleLowerCase()}>{person?.amount}</td>
-                    <td>{person?.created_at}</td>
+                    <td>{person && new Date(person.created_at).toLocaleDateString()}</td>
                 </tr>
             ))}
         </table>
         </div>
+      </div>
     )
   }
 
