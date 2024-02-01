@@ -72,7 +72,7 @@ function App() {
 
   const handleSort = async () => {
     const { data } = await UserService.getUsers({ orderBy: isFromLowerSort ? "tokens:asc" : "tokens:desc" });
-    
+    setTableData(data.data);
     setIsFromLowerSort(!isFromLowerSort);
   }
 
