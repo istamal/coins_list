@@ -1,0 +1,21 @@
+.header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+}
+
+.left div:last-child {
+    display: flex;
+    align-items: center;
+}
+
+.left div:last-child svg {
+    margin: 0 8px;
+    fill: #0000ff;
+}

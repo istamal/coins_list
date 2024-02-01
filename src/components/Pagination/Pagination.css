@@ -1,0 +1,19 @@
+.pagination {
+    margin: auto;
+    list-style: none;
+    display: flex;
+    width: 320px;
+    margin-bottom: 15px;
+}
+
+.pagiantion__page-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 2.5;
+}
+
+.pagiantion__page-item.active {
+    background: #0000ff;
+}

@@ -1,0 +1,23 @@
+.drawer {
+    width: 400px;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    color: white;
+    position: fixed;
+    background: #121825;
+}
+
+.chart {
+    position: relative;
+    height: 300px;
+    padding: 20px;
+}
+
+.succeded {
+    color: green;
+}
+
+.pending {
+    color: red;
+}
