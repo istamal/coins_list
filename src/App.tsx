@@ -1,13 +1,16 @@
-import React, { EventHandler, SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import Header from './components/Header/Header';
 import Card from './components/Card/Card';
 import Table from './components/Table/Table';
 import { PersonData } from './components/Table/Table';
-import Drawer, { DailyStars, Series } from "./components/Drawer/Drawer";
+import Drawer, { Series } from "./components/Drawer/Drawer";
+import { debounce } from 'lodash';
 
-import './App.css';
 import Pagination from './components/Pagination/Pagination';
 import UserService from './api/UserService';
+
+import './App.css';
+import Spiner from './components/Spiner/Spiner';
 
 const getUsers = (data: Array<PersonData>, page: number, limit: number): Array<PersonData> => {
   let users: Array<PersonData> = [];
@@ -25,6 +28,7 @@ function App() {
   const [isOpened, setIsOpened] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [isFromLowerSort, setIsFromLowerSort] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   
   const limit = 10;
 
@@ -48,30 +52,49 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    UserService.getUsers()
+  const searchUsers = debounce(async (params = "") => {
+    setIsLoading(true);
+    if (params !== "") {
+      UserService.getUsers({ search: inputValue })
       .then((response) => {
+        setIsLoading(false);
         setTableData(response.data.data);
       });
+    } else {
+      UserService.getUsers()
+      .then((response) => {
+        setIsLoading(false);
+        setTableData(response.data.data);
+      });
+    }
+  }, 500);
+
+  useEffect(() => {
+    searchUsers();
+
+    return () => searchUsers.cancel();
   }, []);
 
   const handleSearch = async ({ target }: SyntheticEvent) => {
     const { value } = target as HTMLInputElement;
-    const { data } = await UserService.getUsers({ search: value });
 
+    searchUsers(value);
     setInputValue(value);
-    setTableData(data.data);
   }
 
   const handleTableItemClick =  async (evt: any) => {
+    setIsLoading(false);
     setIsOpened(true);
     const label = tableData?.find(user => user.id === evt.target.dataset.id)?.email || "unknown";
-    const userInfo = await UserService.getUserTransations(evt.target.dataset.id)
+    const userInfo = await UserService.getUserTransations(evt.target.dataset.id);
+    setIsLoading(false);
     setChartData([{label, data: userInfo.data}]);
   }
 
   const handleSort = async () => {
+    setIsLoading(false);
     const { data } = await UserService.getUsers({ orderBy: isFromLowerSort ? "tokens:asc" : "tokens:desc" });
+    setIsLoading(false);
     setTableData(data.data);
     setIsFromLowerSort(!isFromLowerSort);
   }
@@ -84,6 +107,7 @@ function App() {
       {isOpened && chartData.length && <Drawer onClose={() => setIsOpened(false)} data={chartData} />}
       <Card title="Моя организация">
         <input onChange={handleSearch} value={inputValue} className="search" type="text" placeholder="&#x1F50E;&#xFE0E; Поиск" />
+        {isLoading && (<Spiner/>)}
         {tableData.length > 0 && <Table sortMode={isFromLowerSort} onSort={handleSort} itemClick={handleTableItemClick} data={getUsers(tableData, page, limit)} />}
       </Card>
       <Pagination onSwitchPage={handlePageToggle} totalPages={totalPages} limit={limit} page={page} siblings={1} />

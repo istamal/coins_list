@@ -4,7 +4,7 @@ export const returnPaginationRange = (totalPages: number, page: number, limit: n
     let totalPageNumberInArray = 7 + siblings;
 
     if (totalPageNumberInArray >= totalPages) {
-        _.range(1, totalPages + 1);
+        return _.range(1, totalPages + 1);
     }
 
     let leftSiblingsIndex = Math.max(page - siblings, 1);

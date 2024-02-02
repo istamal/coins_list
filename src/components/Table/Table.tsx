@@ -49,11 +49,11 @@ const Table: React.FC<TableProp> = ({ data, itemClick, onSort, sortMode }) => {
             </tr>
             {data.length && data.map((person: PersonData) => (
                 <tr key={person?.id}>
-                    <td data-id={person.id} onClick={itemClick}>{person?.email}</td>
-                    <td data-id={person.id} onClick={itemClick}>{person?.name}</td>
-                    <td data-id={person.id} onClick={itemClick}>{person?.role}</td>
-                    <td data-id={person.id} onClick={itemClick}>{person?.subscription?.plan.type}</td>
-                    <td data-id={person.id} onClick={itemClick}>{person?.subscription?.tokens}</td>
+                    <td data-id={person?.id} onClick={itemClick}>{person?.email}</td>
+                    <td data-id={person?.id} onClick={itemClick}>{person?.name}</td>
+                    <td data-id={person?.id} onClick={itemClick}>{person?.role}</td>
+                    <td data-id={person?.id} onClick={itemClick}>{person?.subscription?.plan.type}</td>
+                    <td data-id={person?.id} onClick={itemClick}>{person?.subscription?.tokens}</td>
                     <td>
                         <FontAwesomeIcon icon={faPenAlt} />
                         <FontAwesomeIcon icon={faTrashCan} />
